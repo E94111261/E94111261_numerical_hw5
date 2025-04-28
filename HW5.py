@@ -38,7 +38,7 @@ def system_rhs(t, u):
     du2 = -24*u1 - 52*u2 - 9*np.cos(t) + (1/3)*np.sin(t)
     return np.array([du1, du2])
 
-# 修正過的精確解
+
 def exact_u1(t):
     return 2*np.exp(-3*t) - np.exp(-39*t) + (1/3)*np.cos(t)
 
@@ -89,5 +89,12 @@ for h in h_values:
         'Exact_u1': exact_u1(t_vals),
         'Exact_u2': exact_u2(t_vals)
     })
+    
     print(f"\nRunge-Kutta 4th Order (h={h}):")
+    
+    if h == 0.1:
+        
+        df['RK4_u1_Approx'] = df['RK4_u1_Approx'].apply(lambda x: f"{x:.6e}".replace('e', '×10^'))
+        df['RK4_u2_Approx'] = df['RK4_u2_Approx'].apply(lambda x: f"{x:.6e}".replace('e', '×10^'))
+    
     print(df)
